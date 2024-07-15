@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct Expense: Codable,Hashable, Identifiable {
-    var id: String?
+struct Expense: Codable,Hashable {
+    var _id: String?
     var userId: String?
     var name: String
     var amount: Double
@@ -50,3 +50,11 @@ struct ExpenseSearchResult: Codable {
     var page: Int
     var total_results: Int
 }
+struct EditExpenseResult: Codable {
+    var expense_id: String
+    var new_name: String
+    var new_amount: Double
+    var new_description: String
+    var updatedAt: String
+}
+

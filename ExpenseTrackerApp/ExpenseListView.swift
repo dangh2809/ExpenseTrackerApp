@@ -28,10 +28,6 @@ struct ExpenseListView: View {
                 switch result {
                 case .success(let fetch_result):
                     self.expenses = fetch_result.expenses
-                    print("Fetched expenses:")
-//                    for expense in self.expenses {
-//                        print("Name: \(expense.name), Amount: \(expense.amount), Date: \(expense.createdAt)")
-//                    }
                 case .failure(let error):
                     print(error)
                 }

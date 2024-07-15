@@ -7,6 +7,15 @@ struct AddExpenseView: View {
     @State private var description: String = ""
     @State private var selectedTipPercentage: Double? = nil // State variable for selected tip percentage
     
+    
+    var totalAmount: Double?{
+            let expenseAmount = Double(amount) ?? 0
+            if let tipPercentage = selectedTipPercentage {
+                return expenseAmount + (expenseAmount * tipPercentage)
+            }
+            return expenseAmount
+        }
+
     var body: some View {
         VStack {
             TextField("Amount", text: $amount)
@@ -26,7 +35,11 @@ struct AddExpenseView: View {
                 TipButtonView(amount: $amount, percentage: 0.20, selectedTipPercentage: $selectedTipPercentage)
             }
             .padding()
-
+            
+            Text(String(format: "Total: $%.2f", totalAmount ?? 0))
+                .font(.title2)
+                .padding()
+            
             Button(action: {
                 addExpense()
             }) {
@@ -51,7 +64,7 @@ struct AddExpenseView: View {
     }
 
     func addExpense() {
-        if let expenseAmount = Double(amount) {
+        if let expenseAmount = totalAmount {
             let newExpense = Expense(name: name, amount: expenseAmount, description: description)
             // call add expense API
             APIService.shared.add_expense(new_expense: newExpense) { result in

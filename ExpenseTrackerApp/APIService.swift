@@ -41,7 +41,9 @@ class APIService {
     }
     func get_expenses( completion: @escaping (Result<ExpenseSearchResult, Error>) -> Void) {
         guard let url = URL(string: "\(baseURL)/expense") else { return }
-    
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
                 completion(.failure(error))
@@ -53,6 +55,33 @@ class APIService {
             do {
                 let expenses = try JSONDecoder().decode(ExpenseSearchResult.self, from: data)
                 completion(.success(expenses))
+            } catch {
+                completion(.failure(error))
+            }
+        }.resume()
+    }
+    func add_expense(new_expense: Expense, completion: @escaping (Result<Expense, Error>) -> Void) {
+        guard let url = URL(string: "\(baseURL)/expense") else { return }
+        let input: [String:Any] = [
+            "amount": new_expense.amount,
+            "name": new_expense.name,
+            "description": new_expense.description!
+        ]
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.httpBody = try! JSONSerialization.data(withJSONObject: input)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            guard let data = data else { return }
+            print("data is here")
+        
+            do {
+                let added_expense = try JSONDecoder().decode(Expense.self, from: data)
+                completion(.success(added_expense))
             } catch {
                 completion(.failure(error))
             }

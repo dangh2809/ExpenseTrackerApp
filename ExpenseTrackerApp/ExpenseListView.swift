@@ -16,9 +16,9 @@ struct ExpenseListView: View {
             
         }
         .navigationBarTitle("Expense")
-//        .navigationBarItems(trailing: NavigationLink(destination: AddExpenseView()) {
-//            Image(systemName: "plus")
-//        })
+        .navigationBarItems(trailing: NavigationLink(destination: AddExpenseView()) {
+            Image(systemName: "plus")
+        })
         .onAppear(perform: fetchExpense)
     }
     func fetchExpense() {

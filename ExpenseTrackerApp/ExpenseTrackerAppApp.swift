@@ -22,13 +22,13 @@ struct ExpenseTrackerAppApp: App {
                     Text("Expense")
                 }
 
-//                NavigationView {
-//                    AddExpenseView()
-//                }
-//                .tabItem {
-//                    Image(systemName: "gear")
-//                    Text("Setting")
-//                }
+                NavigationView {
+                    AddExpenseView()
+                }
+                .tabItem {
+                    Image(systemName: "gear")
+                    Text("Setting")
+                }
             }
 
         }

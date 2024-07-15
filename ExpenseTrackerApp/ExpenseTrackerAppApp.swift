@@ -14,13 +14,13 @@ struct ExpenseTrackerAppApp: App {
                     Text("Home")
                 }
 
-//                NavigationView {
-//                    ExpenseListView()
-//                }
-//                .tabItem {
-//                    Image(systemName: "list.bullet")
-//                    Text("Expense")
-//                }
+                NavigationView {
+                    ExpenseListView()
+                }
+                .tabItem {
+                    Image(systemName: "list.bullet")
+                    Text("Expense")
+                }
 
 //                NavigationView {
 //                    AddExpenseView()

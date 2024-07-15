@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Expense: Codable, Identifiable {
+struct Expense: Codable,Hashable, Identifiable {
     var id: String?
     var userId: String?
     var name: String
@@ -15,13 +15,22 @@ struct Expense: Codable, Identifiable {
     var description: String?
     var createdAt: String?
     var updatedAt: String?
-    var createdDate: Date? {
-        let formatter = ISO8601DateFormatter()
-        return formatter.date(from: createdAt!)
+    var createdDate: String? {
+        let inputdateFormatter = DateFormatter()
+        inputdateFormatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss zzz"
+        inputdateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        inputdateFormatter.timeZone = TimeZone(abbreviation: "GMT")
+        let inputdate : Date? = inputdateFormatter.date(from: createdAt!)
+        let outputdateFormatter = DateFormatter()
+        outputdateFormatter.dateFormat = "dd MMM yyyy HH:mm"
+        outputdateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        outputdateFormatter.timeZone = TimeZone.current
+        
+        return outputdateFormatter.string(from: inputdate!)
     }
 }
 
-struct Report: Codable, Identifiable {
+struct Report: Codable, Hashable,Identifiable {
     var id: String?
     var userId: String?
     var budget: Double
@@ -32,4 +41,12 @@ struct Report: Codable, Identifiable {
     var YTD: Double
     var createdAt: String?
     
+}
+
+struct ExpenseSearchResult: Codable {
+    var entries_per_page: Int
+    var expenses: [Expense]
+    var filters: Dictionary<String, String>
+    var page: Int
+    var total_results: Int
 }

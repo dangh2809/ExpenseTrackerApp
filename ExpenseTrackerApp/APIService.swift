@@ -39,7 +39,25 @@ class APIService {
             }
         }.resume()
     }
-
+    func get_expenses( completion: @escaping (Result<ExpenseSearchResult, Error>) -> Void) {
+        guard let url = URL(string: "\(baseURL)/expense") else { return }
+    
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            guard let data = data else { return }
+            print("data is here")
+        
+            do {
+                let expenses = try JSONDecoder().decode(ExpenseSearchResult.self, from: data)
+                completion(.success(expenses))
+            } catch {
+                completion(.failure(error))
+            }
+        }.resume()
+    }
   
     
 }

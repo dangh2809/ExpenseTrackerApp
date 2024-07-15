@@ -23,7 +23,7 @@ struct ExpenseTrackerAppApp: App {
                 }
 
                 NavigationView {
-                    AddExpenseView()
+                    SettingView()
                 }
                 .tabItem {
                     Image(systemName: "gear")

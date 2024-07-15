@@ -89,12 +89,7 @@ class APIService {
     }
     func edit_expense(updated_expense:[String:Any], completion: @escaping (Result<EditExpenseResult, Error>) -> Void) {
         guard let url = URL(string: "\(baseURL)/expense") else { return }
-//        let input: [String:Any] = [
-//            "expense_id": "6694c02f0efa31994c2ba4d5",
-//            "new_amount": 63.72,
-//            "new_description": "R",
-//            "new_name": "name"
-//        ]
+        
         var request = URLRequest(url: url)
         request.httpMethod = "PUT"
         request.httpBody = try! JSONSerialization.data(withJSONObject: updated_expense)
@@ -117,6 +112,30 @@ class APIService {
             }
         }.resume()
     }
-    
+    func remove_expense(expense_id: String, completion: @escaping (Result<DeleteExpenseResult, Error>) -> Void) {
+        guard let url = URL(string: "\(baseURL)/expense") else { return }
+        let input: [String: Any]=[
+            "expense_id": expense_id
+        ]
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        request.httpBody = try! JSONSerialization.data(withJSONObject: input)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            guard let data = data else { return }
+            
+            do {
+                
+                let result = try JSONDecoder().decode(DeleteExpenseResult.self, from: data)
+                completion(.success(result))
+            } catch {
+                completion(.failure(error))
+            }
+        }.resume()
+    }
     
 }

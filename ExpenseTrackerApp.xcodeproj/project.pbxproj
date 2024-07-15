@@ -10,6 +10,7 @@
 		5F4D31A12C433AC900A3732D /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4D31A02C433AC900A3732D /* APIService.swift */; };
 		5F4D31A52C44841A00A3732D /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4D31A42C44841A00A3732D /* DataModel.swift */; };
 		5F4D31AA2C44FBB200A3732D /* ExpenseDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4D31A92C44FBB200A3732D /* ExpenseDetailView.swift */; };
+		5F4D31AC2C45194E00A3732D /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4D31AB2C45194E00A3732D /* SettingView.swift */; };
 		B76054082C35116A00915654 /* ExpenseTrackerAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B76054072C35116A00915654 /* ExpenseTrackerAppApp.swift */; };
 		B760540C2C35116C00915654 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B760540B2C35116C00915654 /* Assets.xcassets */; };
 		B760540F2C35116C00915654 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B760540E2C35116C00915654 /* Preview Assets.xcassets */; };
@@ -42,6 +43,7 @@
 		5F4D31A02C433AC900A3732D /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		5F4D31A42C44841A00A3732D /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		5F4D31A92C44FBB200A3732D /* ExpenseDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseDetailView.swift; sourceTree = "<group>"; };
+		5F4D31AB2C45194E00A3732D /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		B76054042C35116A00915654 /* ExpenseTrackerApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExpenseTrackerApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B76054072C35116A00915654 /* ExpenseTrackerAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTrackerAppApp.swift; sourceTree = "<group>"; };
 		B760540B2C35116C00915654 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 			isa = PBXGroup;
 			children = (
 				B76054312C3511A700915654 /* Overviewview.swift */,
+				5F4D31AB2C45194E00A3732D /* SettingView.swift */,
 				B76054352C3511EB00915654 /* AddExpenseView.swift */,
 				5F4D31A92C44FBB200A3732D /* ExpenseDetailView.swift */,
 				B76054332C3511CD00915654 /* ExpenseListView.swift */,
@@ -301,6 +304,7 @@
 				B76054322C3511A700915654 /* Overviewview.swift in Sources */,
 				B76054362C3511EB00915654 /* AddExpenseView.swift in Sources */,
 				B76054082C35116A00915654 /* ExpenseTrackerAppApp.swift in Sources */,
+				5F4D31AC2C45194E00A3732D /* SettingView.swift in Sources */,
 				B76054342C3511CD00915654 /* ExpenseListView.swift in Sources */,
 				5F4D31A52C44841A00A3732D /* DataModel.swift in Sources */,
 			);

@@ -11,8 +11,8 @@ struct ExpenseDetailView: View {
     @Environment(\.presentationMode) var presentationMode
     @State var expense: Expense
     @State private var isEditing = false // State variable to track edit mode
-
-
+    @State private var showDialog = false
+    
     var body: some View {
         VStack(alignment: .leading) {
             TextField("Expense Name", text: $expense.name)
@@ -24,7 +24,7 @@ struct ExpenseDetailView: View {
                 .font(.title)
                 .disabled(!isEditing)
                 .padding(.bottom, 10)
-
+            
             TextField("Description", text: bindingForOptionalString($expense.description))
                 .font(.body)
                 .disabled(!isEditing)
@@ -34,9 +34,9 @@ struct ExpenseDetailView: View {
             Text(expense.createdDate!)
                 .font(.body)
                 .padding(.bottom, 10)
-//            Text(DateFormatter.localizedString(from: expense.createdDate ?? Date(), dateStyle: .medium, timeStyle: .short))
-//                .font(.body)
-//                .padding(.bottom, 10)
+            //            Text(DateFormatter.localizedString(from: expense.createdDate ?? Date(), dateStyle: .medium, timeStyle: .short))
+            //                .font(.body)
+            //                .padding(.bottom, 10)
             
             Spacer()
         }
@@ -59,16 +59,28 @@ struct ExpenseDetailView: View {
                 }
             }
             Button(action: {
-                onRemove()
-                self.presentationMode.wrappedValue.dismiss()
+                showDialog = true
+                
             }) {
                 Image(systemName: "trash")
             }
-        }).onAppear(perform: {
-            print("expense: ")
-            print(expense)
         })
-        
+        .actionSheet(isPresented: $showDialog) {
+            ActionSheet(title: Text(String(format: "Are you sure to remove \"%@\"?", expense.name)),
+                        message: Text("This action cannot be reversed"),
+                        buttons: [
+                            .cancel(),
+                            .destructive(
+                                Text("Remove"),
+                                action: {
+                                    onRemove()
+                                    self.presentationMode.wrappedValue.dismiss()
+                                }
+                            ),
+                        ]
+            )
+        }
+
     }
     // Helper function to create a non-optional binding
     private func bindingForOptionalString(_ optionalBinding: Binding<String?>) -> Binding<String> {
@@ -94,11 +106,19 @@ struct ExpenseDetailView: View {
                 }
             }
         }
-        return
     }
     
     func onRemove(){
-        return
+        APIService.shared.remove_expense(expense_id: expense._id!) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let edit_result):
+                    print(edit_result)
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
     }
 }
 

@@ -58,3 +58,7 @@ struct EditExpenseResult: Codable {
     var updatedAt: String
 }
 
+struct DeleteExpenseResult: Codable {
+    var result: String
+}
+

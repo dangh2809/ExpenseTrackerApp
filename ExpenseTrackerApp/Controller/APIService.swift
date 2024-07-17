@@ -39,10 +39,17 @@ class APIService {
             }
         }.resume()
     }
-    func get_expenses( completion: @escaping (Result<ExpenseSearchResult, Error>) -> Void) {
-        guard let url = URL(string: "\(baseURL)/expense") else { return }
+    func get_expenses(search_text: String?,    completion: @escaping (Result<ExpenseSearchResult, Error>) -> Void) {
+        guard var urlComponents = URLComponents(string: "\(baseURL)/expense/search") else { return }
+        if search_text != "" {
+            urlComponents.queryItems = [
+                URLQueryItem(name: "text", value: search_text )
+            ]
+        }
+        
+        guard let url = urlComponents.url else { return }
         var request = URLRequest(url: url)
-        request.httpMethod = "POST"
+        request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
@@ -137,5 +144,34 @@ class APIService {
             }
         }.resume()
     }
-    
+    func set_budget(a_budget: Double, completion: @escaping (Result<SetBudgetResult, Error>) -> Void) {
+        guard let url = URL(string: "\(baseURL)/budget") else { return }
+        
+        let input : [String: Any] = [
+            "month": Int(Calendar.current.component(.month, from: Date())),
+            "year": Int(Calendar.current.component(.year, from: Date())),
+            "budget": a_budget
+        ]
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "PUT"
+        request.httpBody = try! JSONSerialization.data(withJSONObject: input)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print(error)
+                completion(.failure(error))
+                return
+            }
+            guard let data = data else { return }
+            do {
+                
+                let result = try JSONDecoder().decode(SetBudgetResult.self, from: data)
+                completion(.success(result))
+            } catch {
+                print("error in API")
+                completion(.failure(error))
+            }
+        }.resume()
+    }
 }

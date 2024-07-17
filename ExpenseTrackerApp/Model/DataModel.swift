@@ -61,4 +61,6 @@ struct EditExpenseResult: Codable {
 struct DeleteExpenseResult: Codable {
     var result: String
 }
-
+struct SetBudgetResult: Codable {
+    var new_budget: Double
+}

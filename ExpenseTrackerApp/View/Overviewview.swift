@@ -26,11 +26,24 @@ struct OverviewView: View {
         })
     }
     func fetchReport(month: String?, year: String?) {
+//        let report : [String: Any] = [
+//            "YTD": 10.57,
+//            "average_day_spent": 10.57,
+//            "average_month_spent": 10.57,
+//            "budget": 345.43,
+//            "createdAt": "Sun, 14 Jul 2024 19:18:19 GMT",
+//            "id": "66945cbb717cab06d01d92de",
+//            "last_month_spent": 0,
+//            "month_spent": 10.57,
+//            "userId": "0"
+//        ]
         APIService.shared.getMonthReport(month: month, year:year){ result in
             DispatchQueue.main.async {
-                isLoading = false
+                
                 switch result {
                 case .success(let report):
+                    isLoading = false
+                    print("success")
                     self.reportData = report
                 case .failure(let error):
                     print(error)
@@ -74,8 +87,10 @@ struct ExpenseSummaryView: View {
             Text("YTD: \(String(format: "$%.2f", report_data.YTD))")
         }
         .padding()
-        .background(Color.white)
         .cornerRadius(10)
         .shadow(radius: 5)
     }
+}
+#Preview {
+    OverviewView()
 }

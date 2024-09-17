@@ -2,7 +2,7 @@ import SwiftUI
 
 @main
 struct ExpenseTrackerAppApp: App {
-
+    
     var body: some Scene {
         WindowGroup {
             TabView {
@@ -30,7 +30,12 @@ struct ExpenseTrackerAppApp: App {
                     Text("Setting")
                 }
             }
+            .environment(\.font, .custom("AnonymousPro-Regular", size: 17))
+            .onAppear(perform: NotificationService.notification.requestNotificationPermission)
 
         }
     }
+    
+
+    
 }

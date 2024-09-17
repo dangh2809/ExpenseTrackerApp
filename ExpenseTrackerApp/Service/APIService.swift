@@ -9,7 +9,7 @@ import Foundation
 
 class APIService {
     static let shared = APIService()
-    let baseURL = "http://127.0.0.1:5000/api"
+    let baseURL = "https://finappserver.azurewebsites.net/api"
     
     // Get Total Spent for the Month
     func getMonthReport(month: String?, year: String?, completion: @escaping (Result<Report, Error>) -> Void) {
